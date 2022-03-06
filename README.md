@@ -2,8 +2,8 @@
 
 Frontend dla Weather API
 
-> Nie jest zgodny w całości z zadaniem.
-> Zrobiony jako miły dodatek.
+> - Nie jest zgodny w całości z zadaniem.
+> - Zrobiony jako miły dodatek dla zadania backendowego.
 
 ## Zadanie
 
