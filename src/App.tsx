@@ -1,6 +1,7 @@
 import { Switch } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { OPEN_WEATHER, WEATHERBIT } from "./constants";
 import { CurrentWeather } from "./CurrentWeather.interface";
 
 const label = { inputProps: { "aria-label": "Switch source" } };
@@ -10,11 +11,26 @@ const App = () => {
   const [lat, setLat] = useState(52.24);
   const [lon, setLon] = useState(21.02);
   const [source, setSource] = useState(false);
+  const [switchState, setSwitchState] = useState(false);
+
   const getWeather = async (lat: number, lon: number, source: boolean) => {
+    setSwitchState(true);
     const { data } = await axios.get(
       `http://localhost:4000/current_weather?lat=${lat}&lon=${lon}&alternateSource=${source}`
     );
     setWeather(data);
+    setSwitchState(false);
+  };
+
+  const handleSwitch = () => {
+    setSource(!source);
+    if (source) {
+      document.querySelector(`#${OPEN_WEATHER}`)?.classList.add("selected");
+      document.querySelector(`#${WEATHERBIT}`)?.classList.remove("selected");
+    } else {
+      document.querySelector(`#${OPEN_WEATHER}`)?.classList.remove("selected");
+      document.querySelector(`#${WEATHERBIT}`)?.classList.add("selected");
+    }
   };
 
   useEffect(() => {
@@ -25,9 +41,18 @@ const App = () => {
   return (
     <div>
       <div className="parameter flex-row big color center">
-        <p>WeatherBIT</p>
-        <Switch {...label} onChange={() => setSource(!source)} />
-        <p>OpenWeatherMap</p>
+        <p className="source selected" id={OPEN_WEATHER}>
+          OpenWeatherMap
+        </p>
+        <Switch
+          {...label}
+          onChange={handleSwitch}
+          id="changeSourceSwitch"
+          disabled={switchState}
+        />
+        <p className="source" id={WEATHERBIT}>
+          WeatherBIT
+        </p>
       </div>
       <div className="container">
         <div className="parameter color flex-column">

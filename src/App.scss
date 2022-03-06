@@ -79,3 +79,12 @@ $input-color: #0f3460;
     font-size: 3rem;
   }
 }
+
+.source {
+  font-weight: 300;
+  color: #c1c1c1;
+  &.selected {
+    font-weight: bold;
+    color: #ffffff;
+  }
+}
