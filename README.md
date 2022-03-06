@@ -1,5 +1,9 @@
 # Weather Api
 
+Frontend dla Weather API
+
+> Nie jest zgodny w całości z zadaniem
+
 ## Zadanie
 
 Napisz aplikację dostarczającą dane o pogodzie
