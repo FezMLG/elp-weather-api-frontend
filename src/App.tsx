@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { OPEN_WEATHER, WEATHERBIT } from "./constants";
 import { CurrentWeather } from "./CurrentWeather.interface";
+var d2d = require("degrees-to-direction");
 
 const label = { inputProps: { "aria-label": "Switch source" } };
 
@@ -154,7 +155,7 @@ const App = () => {
             <span>{weather?.wind.speed}</span> m/s
           </p>
           <p className="info">
-            <span>{weather?.wind.diriection}</span>°
+            <span>{d2d(weather?.wind.diriection)}</span>
           </p>
         </div>
       </div>
