@@ -13,8 +13,10 @@ const App = () => {
   const [source, setSource] = useState(false);
   const [switchState, setSwitchState] = useState(false);
 
-  const getWeather = async (lat: number, lon: number, source: boolean) => {
+  const getWeather = async () => {
     setSwitchState(true);
+    localStorage.setItem("lat", String(lat));
+    localStorage.setItem("lon", String(lon));
     const { data } = await axios.get(
       `http://localhost:4000/current_weather?lat=${lat}&lon=${lon}&alternateSource=${source}`
     );
@@ -33,14 +35,25 @@ const App = () => {
     }
   };
 
+  const handleSubmit = () => {
+    setLat(Number((document.querySelector(`#lat`) as HTMLInputElement)?.value));
+    setLon(Number((document.querySelector(`#lon`) as HTMLInputElement)?.value));
+  };
+
   useEffect(() => {
-    console.log("loading", source);
-    getWeather(lat, lon, source);
-  }, [source]);
+    if (localStorage.getItem("lat") && localStorage.getItem("lon")) {
+      setLat(Number(localStorage.getItem("lat")));
+      setLon(Number(localStorage.getItem("lon")));
+    }
+  }, []);
+
+  useEffect(() => {
+    getWeather();
+  }, [source, lat, lon]);
 
   return (
-    <div>
-      <div className="parameter flex-row big color center">
+    <div className="main-container">
+      <div className="parameter flex-row big color switch-container mg-btm20">
         <p className="source selected" id={OPEN_WEATHER}>
           OpenWeatherMap
         </p>
@@ -54,20 +67,34 @@ const App = () => {
           WeatherBIT
         </p>
       </div>
-      <div className="container">
-        <div className="parameter color flex-column">
-          <form>
-            <div className="parameter flex-row">
+      <div className="container mg-btm20 parameter color flex-column p-20">
+        <form>
+          <div className="parameter flex-row gap40 mg-btm10">
+            <div className="parameter flex-column left">
               <label htmlFor="lat">Latitude</label>
-              <input type="number" id="lat" value="52.24" step="0.01"></input>
-              <label htmlFor="lon">Longitude</label>
-              <input type="number" id="lon" value="21.02" step="0.01"></input>
+              <input
+                type="number"
+                id="lat"
+                defaultValue={localStorage.getItem("lat") || lat}
+                step="0.01"
+              ></input>
             </div>
-            <button type="submit">Submit</button>
-          </form>
-        </div>
+            <div className="parameter flex-column left">
+              <label htmlFor="lon">Longitude</label>
+              <input
+                type="number"
+                id="lon"
+                defaultValue={localStorage.getItem("lon") || lon}
+                step="0.01"
+              ></input>
+            </div>
+          </div>
+          <button type="button" onClick={handleSubmit}>
+            Submit
+          </button>
+        </form>
       </div>
-      <div>
+      <div className="mg-btm20 weather-container">
         <div className="parameter flex-row left">
           <p>
             lat: <span>{weather?.lat}</span>
@@ -77,33 +104,49 @@ const App = () => {
           </p>
         </div>
         <div className="temp-container">
-          <p className="temp">
-            <span>{weather?.temperature}</span>°C
-          </p>
-          <img src={weather?.weather.icon} />
-          <p>
-            Feel: <span>{weather?.apparent_temperature}</span>°C
-          </p>
-          <p>{weather?.weather.description}</p>
+          <div className="parameter flex-row spacebetween">
+            <p className="temp">
+              <span>{weather?.temperature}</span>°C
+            </p>
+            <img
+              src={weather?.weather.icon}
+              className="icon s80"
+              alt="current_weather_icon"
+            />
+          </div>
+          <div className="parameter flex-row spacebetween">
+            <p>
+              Feel: <span>{weather?.apparent_temperature}</span>°C
+            </p>
+            <p>{weather?.weather.description}</p>
+          </div>
         </div>
       </div>
-      <div className="container three">
-        <div className="parameter flex-column big color">
-          <i></i>
+      <div className="container three mg-btm20">
+        <div className="parameter flex-column xl color">
+          <img
+            src="/assets/surface-protection.png"
+            alt="pressure_icon"
+            className="icon s40"
+          />
           <h3 className="title">Pressure</h3>
           <p className="info">
             <span>{weather?.pressure}</span> hPa
           </p>
         </div>
-        <div className="parameter flex-column big color">
-          <i></i>
+        <div className="parameter flex-column xl color">
+          <img
+            src="/assets/water.png"
+            alt="humidity_icon"
+            className="icon s40"
+          />
           <h3 className="title">Humidity</h3>
           <p className="info">
             <span>{weather?.humidity}</span>%
           </p>
         </div>
-        <div className="parameter flex-column big color">
-          <i></i>
+        <div className="parameter flex-column xl color">
+          <img src="/assets/wind.png" alt="wind_icon" className="icon s40" />
           <h3 className="title">Wind</h3>
           <p className="info">
             <span>{weather?.wind.speed}</span> m/s
@@ -113,20 +156,28 @@ const App = () => {
           </p>
         </div>
       </div>
-      <div className="container two">
-        <div className="parameter flex-column big color">
+      <div className="container two mg-btm20">
+        <div className="parameter flex-column xl color">
           <p className="info">
             <span>{weather?.sunrise}</span>
           </p>
           <h3 className="title">Sunrise</h3>
-          <i></i>
+          <img
+            src="/assets/sunrise--v1.png"
+            alt="sunrise_icon"
+            className="icon s80"
+          />
         </div>
-        <div className="parameter flex-column big color">
+        <div className="parameter flex-column xl color">
           <p className="info">
             <span>{weather?.sunset}</span>
           </p>
           <h3 className="title">Sunset</h3>
-          <i></i>
+          <img
+            src="/assets/sunset--v2.png"
+            alt="sunset_icon"
+            className="icon s80"
+          />
         </div>
       </div>
       <div className="container">

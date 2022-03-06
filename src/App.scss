@@ -1,6 +1,14 @@
 $back-color: #16213e;
 $input-color: #0f3460;
 
+.switch-container {
+  grid-template-columns: auto 50px auto;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .container {
   min-width: 340px;
   height: fit-content;
@@ -26,11 +34,19 @@ $input-color: #0f3460;
   height: fit-content;
   display: flex;
 
+  &.spacebetween {
+    justify-content: space-between;
+  }
+
   &.flex-column {
     gap: 5px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    &.left {
+      align-items: flex-start;
+    }
   }
 
   &.flex-row {
@@ -47,8 +63,16 @@ $input-color: #0f3460;
     }
   }
 
+  &.gap40 {
+    gap: 40px;
+  }
+
   &.big {
     min-height: 100px;
+  }
+
+  &.xl {
+    min-height: 150px;
   }
 
   &.small {
@@ -76,7 +100,7 @@ $input-color: #0f3460;
   .temp {
     font-style: normal;
     font-weight: normal;
-    font-size: 3rem;
+    font-size: 4rem;
   }
 }
 
@@ -86,5 +110,56 @@ $input-color: #0f3460;
   &.selected {
     font-weight: bold;
     color: #ffffff;
+  }
+}
+
+.main-container {
+  max-width: 490px;
+  margin: auto;
+}
+
+input[type="number"] {
+  background: #0f3460;
+  border-radius: 8px;
+  height: 40px;
+  width: 140px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 5px 10px;
+}
+
+.mg-btm20 {
+  margin-bottom: 20px;
+}
+
+.mg-btm10 {
+  margin-bottom: 10px;
+}
+
+.weather-container {
+  margin: 40px 0px;
+}
+
+.p-20 {
+  padding: 20px 0px;
+}
+button[type="button"] {
+  background-color: aquamarine;
+  padding: 10px 20px;
+  border: none;
+  font: inherit;
+  outline: none;
+  border-radius: 8px;
+}
+
+.icon {
+  &.s40 {
+    max-width: 40px;
+    max-height: 40px;
+  }
+  &.s80 {
+    max-width: 80px;
+    max-height: 80px;
   }
 }
