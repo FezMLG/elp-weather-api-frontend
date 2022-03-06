@@ -90,7 +90,7 @@ const App = () => {
               ></input>
             </div>
           </div>
-          <button type="button" onClick={handleSubmit}>
+          <button type="button" role="submit" onClick={handleSubmit}>
             Submit
           </button>
         </form>
@@ -98,16 +98,16 @@ const App = () => {
       <div className="mg-btm20 weather-container">
         <div className="parameter flex-row left">
           <p>
-            lat: <span>{weather?.lat}</span>
+            lat: <span data-cy="lat">{weather?.lat}</span>
           </p>
           <p>
-            lon: <span>{weather?.lon}</span>
+            lon: <span data-cy="lon">{weather?.lon}</span>
           </p>
         </div>
         <div className="temp-container">
           <div className="parameter flex-row spacebetween">
             <p className="temp">
-              <span>{weather?.temperature}</span>°C
+              <span data-cy="temp">{weather?.temperature}</span>°C
             </p>
             <img
               src={weather?.weather.icon}
@@ -117,9 +117,10 @@ const App = () => {
           </div>
           <div className="parameter flex-row spacebetween">
             <p>
-              Feel: <span>{weather?.apparent_temperature}</span>°C
+              Feel:{" "}
+              <span data-cy="temp_feel">{weather?.apparent_temperature}</span>°C
             </p>
-            <p className="weather-description">
+            <p className="weather-description" data-cy="weather-desc">
               {weather?.weather.description}
             </p>
           </div>
@@ -134,7 +135,7 @@ const App = () => {
           />
           <h3 className="title">Pressure</h3>
           <p className="info">
-            <span>{weather?.pressure}</span> hPa
+            <span data-cy="pressure">{weather?.pressure}</span> hPa
           </p>
         </div>
         <div className="parameter flex-column xl color">
@@ -145,24 +146,24 @@ const App = () => {
           />
           <h3 className="title">Humidity</h3>
           <p className="info">
-            <span>{weather?.humidity}</span>%
+            <span data-cy="humidity">{weather?.humidity}</span>%
           </p>
         </div>
         <div className="parameter flex-column xl color">
           <img src="/assets/wind.png" alt="wind_icon" className="icon s40" />
           <h3 className="title">Wind</h3>
           <p className="info">
-            <span>{weather?.wind.speed}</span> m/s
+            <span data-cy="wind_speed">{weather?.wind.speed}</span> m/s
           </p>
           <p className="info">
-            <span>{d2d(weather?.wind.diriection)}</span>
+            <span data-cy="wind_dir">{d2d(weather?.wind.diriection)}</span>
           </p>
         </div>
       </div>
       <div className="container two mg-btm20">
         <div className="parameter flex-column xl color">
           <p className="info">
-            <span>{weather?.sunrise}</span>
+            <span data-cy="sunrise">{weather?.sunrise}</span>
           </p>
           <h3 className="title">Sunrise</h3>
           <img
@@ -173,7 +174,7 @@ const App = () => {
         </div>
         <div className="parameter flex-column xl color">
           <p className="info">
-            <span>{weather?.sunset}</span>
+            <span data-cy="sunset">{weather?.sunset}</span>
           </p>
           <h3 className="title">Sunset</h3>
           <img
@@ -186,7 +187,11 @@ const App = () => {
       <div className="container">
         <div className="parameter flex-row left">
           <p>Last update: </p>
-          <span>{weather?.ob_time}</span>
+          <span data-cy="ob_time">{weather?.ob_time}</span>
+        </div>
+        <div className="parameter flex-row left">
+          <p>Provider: </p>
+          <span data-cy="ob_time">{weather?.source}</span>
         </div>
       </div>
     </div>
