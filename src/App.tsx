@@ -118,7 +118,9 @@ const App = () => {
             <p>
               Feel: <span>{weather?.apparent_temperature}</span>°C
             </p>
-            <p>{weather?.weather.description}</p>
+            <p className="weather-description">
+              {weather?.weather.description}
+            </p>
           </div>
         </div>
       </div>
