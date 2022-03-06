@@ -110,6 +110,7 @@ $input-color: #0f3460;
   &.selected {
     font-weight: bold;
     color: #ffffff;
+    border-bottom: 3px solid #c84b31;
   }
 }
 
@@ -145,12 +146,14 @@ input[type="number"] {
   padding: 20px 0px;
 }
 button[type="button"] {
-  background-color: aquamarine;
+  background-color: #c84b31;
   padding: 10px 20px;
   border: none;
   font: inherit;
   outline: none;
   border-radius: 8px;
+  color: #ffffff;
+  cursor: pointer;
 }
 
 .icon {
